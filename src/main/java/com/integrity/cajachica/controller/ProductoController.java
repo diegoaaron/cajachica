@@ -26,8 +26,12 @@ public class ProductoController {
     // Obtener un producto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerPorId(@PathVariable int id) {
-        Optional<Producto> producto = productoService.obtenerPorId(id);
-        return producto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    	Producto producto = productoService.obtenerPorId(id);
+        if (producto != null) {
+            return ResponseEntity.ok(producto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Crear un nuevo producto
@@ -39,8 +43,8 @@ public class ProductoController {
     // Actualizar un producto existente
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable int id, @RequestBody Producto producto) {
-        Optional<Producto> productoExistente = productoService.obtenerPorId(id);
-        if (productoExistente.isPresent()) {
+        Producto productoExistente = productoService.obtenerPorId(id);
+        if (productoExistente != null) {
             producto.setId(id);
             return ResponseEntity.ok(productoService.guardar(producto));
         } else {
@@ -51,7 +55,7 @@ public class ProductoController {
     // Eliminar un producto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable int id) {
-        if (productoService.obtenerPorId(id).isPresent()) {
+        if (productoService.obtenerPorId(id) != null) {
             productoService.eliminar(id);
             return ResponseEntity.ok().build();
         } else {

@@ -18,8 +18,8 @@ public class ProductoService {
         return productoRepository.findAll();
     }
 
-    public Optional<Producto> obtenerPorId(int id) {
-        return productoRepository.findById(id);
+    public Producto obtenerPorId(int id) {
+        return productoRepository.findById(id).orElse(null);
     }
 
     public Producto guardar(Producto producto) {
