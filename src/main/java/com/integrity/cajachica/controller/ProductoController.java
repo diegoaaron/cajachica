@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/productos")
 public class ProductoController {
 
     @Autowired
