@@ -1,4 +1,5 @@
-package com.integrity.cajachica.annotation;
+package com.integrity.cajachica.model;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,9 +8,11 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Producto {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private String nombre;
     private double precio;
 
@@ -38,3 +41,4 @@ public class Producto {
         this.precio = precio;
     }
 }
+

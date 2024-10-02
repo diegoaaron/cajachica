@@ -1,8 +1,6 @@
-package com.integrity.cajachica.repositorio;
+package com.integrity.cajachica.repository;
 
-// 
-
-import com.integrity.cajachica.annotation.Producto;
+import com.integrity.cajachica.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
