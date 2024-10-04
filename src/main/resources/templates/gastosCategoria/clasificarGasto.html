@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clasificar Gasto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Clasificar Gasto</h2>
+        <form th:action="@{/api/gastos/clasificar}" method="post" class="mt-3">
+            <div class="form-group">
+                <label for="gasto">Gasto:</label>
+                <select class="form-control" id="gasto" name="gastoId" required>
+                    <option value="">Seleccione un gasto</option>
+                    <option th:each="gasto : ${gastos}" th:value="${gasto.id}" th:text="${gasto.descripcionGasto}">Gasto</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Nueva Categoría:</label>
+                <select class="form-control" id="categoria" name="categoriaId" required>
+                    <option value="">Seleccione una categoría</option>
+                    <option th:each="categoria : ${categorias}" th:value="${categoria.categoriaId}" th:text="${categoria.nombreCategoria}">Categoría</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Reclasificar Gasto</button>
+        </form>
+    </div>
+</body>
+</html>
