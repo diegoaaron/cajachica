@@ -1,15 +1,16 @@
 package com.integrity.cajachica.model;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import java.math.BigDecimal;
-import java.sql.Date;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Rendicion_Gastos") // Especifica el nombre de la tabla en la base de datos
@@ -33,11 +34,11 @@ public class RendicionGastos {
 
     @ManyToOne // Relación muchos a uno con Caja_Chica
     @JoinColumn(name = "caja_id", nullable = false) // Columna de unión y no puede ser nula
-    private CajaChica caja; // Objeto CajaChica asociado
+    private CajaChica caja_id; // Objeto CajaChica asociado
 
     @ManyToOne // Relación muchos a uno con Tipo_Comprobante
     @JoinColumn(name = "tipo_comprobante_id", nullable = false) // Columna de unión y no puede ser nula
-    private TipoComprobante tipoComprobante; // Objeto TipoComprobante asociado
+    private TipoComprobante tipoComprobante_id; // Objeto TipoComprobante asociado
 
     @ManyToOne // Relación muchos a uno con Categoria_Gasto
     @JoinColumn(name = "categoria_id", nullable = false) // Columna de unión y no puede ser nula
@@ -86,22 +87,22 @@ public class RendicionGastos {
 
    // Método para obtener la caja asociada a la rendición de gastos
    public CajaChica getCaja() {
-       return caja;
+       return caja_id;
    }
 
    // Método para establecer la caja asociada a la rendición de gastos
-   public void setCaja(CajaChica caja) {
-       this.caja = caja;
+   public void setCaja(CajaChica caja_id) {
+       this.caja_id = caja_id;
    }
 
    // Método para obtener el tipo de comprobante asociado a la rendición de gastos
    public TipoComprobante getTipoComprobante() {
-       return tipoComprobante;
+       return tipoComprobante_id;
    }
 
    // Método para establecer el tipo de comprobante asociado a la rendición de gastos
-   public void setTipoComprobante(TipoComprobante tipoComprobante) {
-       this.tipoComprobante = tipoComprobante;
+   public void setTipoComprobante(TipoComprobante tipoComprobante_id) {
+       this.tipoComprobante_id = tipoComprobante_id;
    }
 
    // Método para obtener la categoría asociada a la rendición de gastos

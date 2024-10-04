@@ -19,6 +19,12 @@ public class GastoController {
     @Autowired
     private CategoriaGService categoriaGService;
 
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
+
     @GetMapping("/clasificar-gasto")
     public String mostrarFormularioClasificar(Model model) {
         // Obtener todos los gastos y categorías a través de los servicios
@@ -35,5 +41,7 @@ public class GastoController {
 
         return "redirect:/clasificar-gasto";
     }
+
+    
     
 }

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoriaGastoRepository extends JpaRepository<CategoriaGasto, Integer> {
+
 }

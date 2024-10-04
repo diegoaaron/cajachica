@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Saldo de Caja Chica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Verificar Saldo de Caja Chica</h1>
+    <form id="verificarSaldoForm">
+        <label for="proyectoSelect">Selección de Proyecto:</label>
+        <select id="proyectoSelect">
+            <option value="">--Seleccione un Proyecto--</option>
+            <!-- Carga dinámica de proyectos con Thymeleaf -->
+            <option th:each="proyecto : ${proyectos}" 
+                    th:value="${proyecto.caja_id}" 
+                    th:data-saldo="${proyecto.monto_asignado}" 
+                    th:text="${proyecto.nombre_proyecto}">
+            </option>
+        </select>
+
+        <label for="saldoCaja">Saldo Actual de Caja Chica:</label>
+        <input type="text" id="saldoCaja" readonly>
+
+        <button type="button" onclick="verificarSaldo()">Verificar Saldo</button>
+    </form>
+
+    <div id="mensaje" class="message"></div>
+
+    <script>
+        function verificarSaldo() {
+            const selectProyecto = document.getElementById("proyectoSelect");
+            const saldoCaja = document.getElementById("saldoCaja");
+            const mensaje = document.getElementById("mensaje");
+
+            // Obtiene el proyecto seleccionado
+            const proyectoSeleccionado = selectProyecto.options[selectProyecto.selectedIndex];
+
+            if (proyectoSeleccionado.value === "") {
+                mensaje.textContent = "No hay proyectos disponibles para verificar.";
+                saldoCaja.value = "";
+                return;
+            }
+
+            // Obtiene el saldo del proyecto seleccionado
+            const saldo = proyectoSeleccionado.getAttribute("data-saldo");
+
+            // Verifica si hay saldo
+            if (saldo === "0") {
+                mensaje.textContent = "Saldo no disponible";
+                saldoCaja.value = "";
+            } else {
+                mensaje.textContent = "";
+                saldoCaja.value = `$ ${saldo}`;
+            }
+        }
+    </script>
+</body>
+
+</html>

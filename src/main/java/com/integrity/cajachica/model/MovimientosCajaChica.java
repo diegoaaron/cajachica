@@ -1,15 +1,16 @@
 package com.integrity.cajachica.model;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import java.math.BigDecimal;
-import java.sql.Date;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Movimientos_Caja_Chica") // Especifica el nombre de la tabla en la base de datos
@@ -76,13 +77,13 @@ public class MovimientosCajaChica {
         this.saldo_resultante = saldo_resultante;
     }
 
-   // Método para obtener la caja asociada al movimiento
-   public CajaChica getCaja() {
-       return caja;
-   }
+    // Método para obtener la caja asociada al movimiento
+    public CajaChica getCaja() {
+        return caja;
+    }
 
-   // Método para establecer la caja asociada al movimiento
-   public void setCaja(CajaChica caja) {
-       this.caja = caja;
-   }
+    // Método para establecer la caja asociada al movimiento
+    public void setCaja(CajaChica caja) {
+        this.caja = caja;
+    }
 }

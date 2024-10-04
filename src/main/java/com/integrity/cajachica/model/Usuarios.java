@@ -1,13 +1,13 @@
 package com.integrity.cajachica.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Usuarios") // Especifica el nombre de la tabla en la base de datos
@@ -45,7 +45,7 @@ public class Usuarios {
 
     @ManyToOne // Indica que muchos usuarios pueden tener un rol
     @JoinColumn(name = "rol_id", nullable = false) // Especifica la columna de unión y que no puede ser nula
-    private Rol rol; // Cambiamos el tipo a Rol en lugar de int
+    private Roles rol; // Cambiamos el tipo a Rol en lugar de int
 
     // Getters y setters
     public int getUsuario_id() {
@@ -129,12 +129,12 @@ public class Usuarios {
     }
 
    // Método para obtener el rol asociado al usuario
-   public Rol getRol() {
+   public Roles getRol() {
        return rol;
    }
 
    // Método para establecer el rol asociado al usuario
-   public void setRol(Rol rol) {
+   public void setRol(Roles rol) {
        this.rol = rol;
    }
 }

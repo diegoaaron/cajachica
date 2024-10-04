@@ -1,15 +1,16 @@
 package com.integrity.cajachica.model;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import java.math.BigDecimal;
-import java.sql.Date;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Caja_Chica") // Especifica el nombre de la tabla en la base de datos
@@ -38,7 +39,7 @@ public class CajaChica {
 
 	@ManyToOne // Relación muchos a uno con Usuarios
 	@JoinColumn(name = "usuario_id", nullable = false) // Columna de unión y no puede ser nula
-	private Usuarios usuario; // Objeto Usuario asociado
+	private Usuarios usuario_id; // Objeto Usuario asociado
 
 	// Getters y setters
 	public int getCaja_id() {
@@ -89,12 +90,20 @@ public class CajaChica {
 		this.fecha_cierre = fecha_cierre;
 	}
 
-	public boolean isEstado_proyecto() {
+	public boolean getEstado_proyecto() {
 		return estado_proyecto;
 	}
 
 	public void setEstado_proyecto(boolean estado_proyecto) {
 		this.estado_proyecto = estado_proyecto;
 	}
+
+    public Usuarios getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Usuarios usuario_id) {
+        this.usuario_id = usuario_id;
+    }
 
 }
