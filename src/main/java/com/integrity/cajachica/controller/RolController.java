@@ -31,6 +31,7 @@ public class RolController {
 	@PostMapping
 	public String createRol(@ModelAttribute("rol") Rol rol, Model model) {
 		try {
+			rol.setFecha_creacion(new java.sql.Date(System.currentTimeMillis()));
 			rolService.saveRol(rol);
 			return "redirect:/roles"; // Redirige a la lista de roles
 		} catch (IllegalArgumentException e) {
@@ -57,7 +58,6 @@ public class RolController {
 		// Modificar las propiedades del rol existente, excepto la colección de usuarios
 		rolExistente.setNombrerol(rol.getNombrerol());
 		rolExistente.setDescripcion(rol.getDescripcion());
-		rolExistente.setFecha_creacion(rol.getFecha_creacion());
 
 		rolService.updateRol(rolExistente);
 		return "redirect:/roles"; // Redirige a la lista de roles

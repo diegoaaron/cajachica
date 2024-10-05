@@ -28,17 +28,19 @@
     <label for="password">Contraseña:</label>
     <input type="password" id="password" th:field="*{password}" required/><br/>
 
+<!-- 
     <label for="fecha_registro">Fecha de Registro:</label>
     <input type="date" id="fecha_registro" th:field="*{fecha_registro}" required/><br/>
 
     <label for="fecha_baja">Fecha de Baja:</label>
-    <input type="date" id="fecha_baja" th:field="*{fecha_baja}"/><br/> <!-- Puede ser nulo -->
+    <input type="date" id="fecha_baja" th:field="*{fecha_baja}"/><br/> 
+ -->
 
     <label for="rol">Rol:</label>
     <select id="rol" th:field="*{rol}" required>
         <option value="" disabled selected>Seleccione un rol</option>
         <!-- Asumiendo que tienes una lista de roles en el modelo -->
-        <option th:each="rol : ${roles}" th:value="${rol.rol_id}" th:text="${rol.nombre_rol}"></option>
+        <option th:each="rol : ${roles}" th:value="${rol.rol_id}" th:text="${rol.nombrerol}"></option>
     </select><br/>
 
     <button type="submit">Actualizar Usuario</button>

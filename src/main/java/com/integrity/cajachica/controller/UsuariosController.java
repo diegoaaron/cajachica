@@ -40,6 +40,8 @@ public class UsuariosController {
 
 	@PostMapping
 	public String createUsuarios(@ModelAttribute("usuarios") Usuarios usuarios) {
+		usuarios.setFecha_registro(new java.sql.Date(System.currentTimeMillis()));
+		usuarios.setFecha_baja(null);
 		usuariosService.saveUsuarios(usuarios);
 		return "redirect:/usuarios"; // Redirige a la lista de productos
 	}
@@ -47,7 +49,7 @@ public class UsuariosController {
 	@GetMapping("/editar/{id}")
 	public String showEditForm(@PathVariable int id, Model model) {
 		Usuarios usuarios = usuariosService.getUsuariosById(id);
-		
+
 		if (usuarios != null) {
 			model.addAttribute("usuarios", usuarios);
 			// Obtener la lista de roles existentes y añadirla al modelo
@@ -60,8 +62,15 @@ public class UsuariosController {
 
 	@PostMapping("/actualizar/{id}")
 	public String updateUsuarios(@PathVariable int id, @ModelAttribute("usuarios") Usuarios usuarios) {
-	    usuarios.setUsuario_id(id); // Establece el ID en el objeto usuarios
-		usuariosService.saveUsuarios(usuarios);
+		Usuarios usuarioExistente = usuariosService.getUsuariosById(id);
+
+		// Asegúrate de que la fecha de registro no se sobreescriba con un valor nulo
+		if (usuarioExistente != null) {
+			usuarios.setUsuario_id(id); // Establece el ID en el objeto usuarios
+			usuarios.setFecha_registro(usuarioExistente.getFecha_registro()); // Mantén la fecha de registro original
+			usuariosService.saveUsuarios(usuarios);
+		}
+
 		return "redirect:/usuarios";
 	}
 
