@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Editar Usuario</h1>
-<form th:action="@{/usuarios/actualizar/{id}(id=${usuario.usuario_id})}" th:object="${usuarios}" method="post">
+<form th:action="@{/usuarios/actualizar/{id}(id=${usuarios.usuario_id})}" th:object="${usuarios}" method="post">
     <label for="nombres">Nombres:</label>
     <input type="text" id="nombres" th:field="*{nombres}" required/><br/>
 

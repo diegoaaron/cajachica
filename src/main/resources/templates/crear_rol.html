@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Rol</title>
+</head>
+<body>
+<h1>Crear Rol</h1>
+
+<!-- Mensaje de error -->
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/roles}" th:object="${rol}" method="post">
+    <label for="nombre_rol">Nombre del Rol:</label>
+    <input type="text" id="nombrerol" th:field="*{nombrerol}" required/><br/>
+
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" th:field="*{descripcion}" required/><br/>
+
+    <label for="fecha_creacion">Fecha de Creación:</label>
+    <input type="date" id="fecha_creacion" th:field="*{fecha_creacion}" required/><br/>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a href="/roles">Volver a la lista de roles</a>
+</body>
+</html>

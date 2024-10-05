@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Roles</title>
+</head>
+<body>
+<h1>Lista de Roles</h1>
+<a href="/roles/nuevo">Crear Nuevo Rol</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre del Rol</th>
+        <th>Descripción</th>
+        <th>Fecha de Creación</th>
+        <th>Acciones</th>
+    </tr>
+    <tr th:each="rol : ${roles}">
+        <td th:text="${rol.rol_id}"></td>
+        <td th:text="${rol.nombrerol}"></td>
+        <td th:text="${rol.descripcion}"></td>
+        <td th:text="${#dates.format(rol.fecha_creacion, 'yyyy-MM-dd')}"></td> <!-- Formato de fecha -->
+        <td>
+            <a th:href="@{/roles/editar/{id}(id=${rol.rol_id})}">Editar</a>
+            <a th:href="@{/roles/eliminar/{id}(id=${rol.rol_id})}">Eliminar</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

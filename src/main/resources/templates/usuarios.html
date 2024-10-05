@@ -31,7 +31,7 @@
         <td th:text="${usuario.direccion}"></td>
         <td th:text="${#dates.format(usuario.fecha_registro, 'yyyy-MM-dd')}"></td> <!-- Formato de fecha -->
         <td th:text="${usuario.fecha_baja != null ? #dates.format(usuario.fecha_baja, 'yyyy-MM-dd') : 'No aplica'}"></td> <!-- Formato de fecha -->
-        <td th:text="${usuario.rol.nombre_rol}"></td> <!-- Asumiendo que Rol tiene un atributo nombre_rol -->
+        <td th:text="${usuario.rol.nombrerol}"></td> <!-- Asumiendo que Rol tiene un atributo nombre_rol -->
         <td>
             <a th:href="@{/usuarios/editar/{id}(id=${usuario.usuario_id})}">Editar</a>
             <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.usuario_id})}">Eliminar</a>

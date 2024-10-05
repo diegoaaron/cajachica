@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
@@ -41,6 +44,8 @@ public class Usuarios {
     @Column(nullable = false)
     private java.sql.Date fecha_registro;
 
+    @Column(nullable = true) // Permitir que sea nulo
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Especifica el formato esperado
     private java.sql.Date fecha_baja; // Puede ser nulo
 
     @ManyToOne // Indica que muchos usuarios pueden tener un rol

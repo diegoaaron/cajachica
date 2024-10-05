@@ -11,22 +11,30 @@ import java.util.List;
 @Service
 public class RolService {
 
-    @Autowired
-    private RolRepository rolRepository;
+	@Autowired
+	private RolRepository rolRepository;
 
-    public List<Rol> getAllRoles() {
-        return rolRepository.findAll();
-    }
+	public List<Rol> getAllRoles() {
+		return rolRepository.findAll();
+	}
 
-    public Rol getRolById(int id) {
-        return rolRepository.findById(id).orElse(null);
-    }
+	public Rol getRolById(int id) {
+		return rolRepository.findById(id).orElse(null);
+	}
 
-    public void saveRol(Rol rol) {
-    	rolRepository.save(rol);
-    }
+	public void saveRol(Rol rol) {
+		if (rolRepository.existsByNombrerol(rol.getNombrerol())) {
+			throw new IllegalArgumentException("El nombre del rol ya existe");
+		}
+		rolRepository.save(rol);
+	}
+	
+	public void updateRol(Rol rol) {
+		rolRepository.save(rol);
+	}
 
-    public void deleteRol(int id) {
-    	rolRepository.deleteById(id);
-    }
+	public void deleteRol(int id) {
+		rolRepository.deleteById(id);
+	}
+
 }
