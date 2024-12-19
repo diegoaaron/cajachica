@@ -49,7 +49,7 @@ public class CajaChicaModel {
 		}
 	}
 
-	// método para listar cajas por usuario
+	// método para listar caja chica activa por id de usuario
 	public CajaChica listarCajasPorUsuario(int usuario_id) {
 
 		PreparedStatement pstm = null;

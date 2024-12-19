@@ -93,7 +93,8 @@ public class RendicionGastosModel {
 		return rendicionesPorCajaChicaList;
 	}
 
-	// método para actualizar un registro de las rendiciones realizadas
+	// método para actualizar todos los registros de rendicion de gastos por ID de
+	// caja chica
 	public void actualizarRegistroRendicion(int cajaId) {
 
 		PreparedStatement pstm = null;

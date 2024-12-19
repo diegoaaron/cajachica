@@ -16,6 +16,7 @@ public class RendicionGastos {
 
 	}
 
+	// constructor para agregar rendiciones de gastos
 	public RendicionGastos(int caja_id, int categoria_id, int tipo_comprobante_id, String num_comprobante,
 			String descripcion_gasto, double monto, String fecha_registro, String estado_aprobacion) {
 		this.caja_id = caja_id;
