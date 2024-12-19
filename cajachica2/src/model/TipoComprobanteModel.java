@@ -13,7 +13,7 @@ public class TipoComprobanteModel {
 		this.cnn = Conexion.conectar();
 	}
 
-	// método para listar roles para un usuario
+	// método para listar los tipo de comprobante que existen
 	public ArrayList<TipoComprobante> listarTipoComprobante() {
 
 		ResultSet rst = null;
