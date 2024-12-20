@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
 
 import model.CajaChica;
 import model.RendicionGastos;
-import repository.RegistroCajaChicaRepository;
-import repository.RegistroRendicionGastosRepository;
+import controller.CajaChicaController;
+import controller.RendicionGastosController;
 
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;

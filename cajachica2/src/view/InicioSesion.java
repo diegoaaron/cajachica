@@ -83,18 +83,22 @@ public class InicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				UsuarioController usuarioController = new UsuarioController();
+				String correo = txtCorreo.getText();
+				String clave = new String(txtClave.getPassword());
 
 				try {
-					String correo = txtCorreo.getText();
-					String clave = new String(txtClave.getPassword());
+					int usuario_id = usuarioController.iniciarSesion(correo, clave);
 
-					usuarioController.iniciarSesion(correo, clave);
+					if (usuario_id != -1) {
+						Menu miMenu = new Menu(usuario_id);
+						miMenu.setVisible(true);
+					} else {
+						System.out.println("error en el inicio de sesion");
+					}
 					dispose();
 				} catch (Exception a) {
 					a.printStackTrace();
 				}
-				txtCorreo.setText("");
-				txtClave.setText("");
 			}
 		});
 

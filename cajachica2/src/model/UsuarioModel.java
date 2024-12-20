@@ -43,8 +43,8 @@ public class UsuarioModel {
 
 		PreparedStatement pstm = null;
 		ResultSet rst = null;
-		String sql = "SELECT * FROM Usuarios WHERE correo = ? AND password = ?";
 		int usuario_id = -1;
+		String sql = "SELECT usuario_id FROM Usuarios WHERE correo = ? AND password = ?";
 
 		try {
 			pstm = cnn.prepareStatement(sql);

@@ -33,7 +33,7 @@ public class UsuarioController {
 		UsuarioModel usuarioModel = new UsuarioModel();
 
 		try {
-			usuarioModel.iniciarSesion(correo, clave);
+			usuario_id = usuarioModel.iniciarSesion(correo, clave);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
