@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import model.Usuario;
-import repository.UsuarioRepository;
+import controller.UsuarioController;
 
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
@@ -23,18 +23,6 @@ public class RecuperarContrasena extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JPasswordField txtpassword;
 	private JPasswordField txtpasswordval;
-
-	private ArrayList<Usuario> usuarioArrayList;
-
-	/**
-	 * Launch the application.
-	 * 
-	 * 
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { RecuperarContrasena frame = new
-	 * RecuperarContrasena(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
 
 	/**
 	 * Create the frame.
@@ -76,11 +64,11 @@ public class RecuperarContrasena extends JInternalFrame {
 		btnGuadar.setBounds(162, 202, 105, 27);
 		getContentPane().add(btnGuadar);
 
-		// metodos
+		// método que lista los usuarios activos al mostrar el formulario
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
-				usuarioArrayList = new UsuarioRepository().listarUsuarios();
+				ArrayList<Usuario> usuarioArrayList = new UsuarioController().listarUsuariosActivos();
 
 				cbnuser.addItem(new Usuario());
 				for (Usuario usuario : usuarioArrayList) {
@@ -89,39 +77,34 @@ public class RecuperarContrasena extends JInternalFrame {
 			}
 		});
 
+		// método que guarda el cambio de contraseña
 		btnGuadar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				String password1 = new String(txtpassword.getPassword());
 				String password2 = new String(txtpasswordval.getPassword());
-
 				Usuario usuarioSeleccionado = (Usuario) cbnuser.getSelectedItem();
 
-				if (usuarioSeleccionado != null) {
-					// Realizar alguna acción con el usuario seleccionado
+				try {
 
-					try {
+					if (password1.equals(password2)) {
+						new UsuarioController().actualizarPassword(password2, usuarioSeleccionado.getUsuario_id());
 
-						if (password1.equals(password2)) {
-							usuarioSeleccionado.setPassword(password1);
-							new UsuarioRepository().actualizarPassword(usuarioSeleccionado);
-							JOptionPane.showMessageDialog(null, "password actualizado");
+						JOptionPane.showMessageDialog(null, "Password actualizado", "Éxito",
+								JOptionPane.INFORMATION_MESSAGE);
 
-							cbnuser.setSelectedIndex(0);
-							txtpassword.setText("");
-							txtpasswordval.setText("");
-
-						} else {
-							JOptionPane.showMessageDialog(null, "Los password no son iguales");
-						}
-
-					} catch (Exception e) {
-						e.printStackTrace();
+					} else {
+						JOptionPane.showMessageDialog(null, "Los password no son iguales", "Error",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario");
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					cbnuser.setSelectedIndex(0);
+					txtpassword.setText("");
+					txtpasswordval.setText("");
 				}
-
 			}
 		});
 

@@ -57,13 +57,12 @@ public class UsuarioController {
 	}
 
 	// método para actualizar password
-	public void actualizarPassword(int usuario_id, String nombres, String apellidos, String correo, String password) {
+	public void actualizarPassword(String nuevoPassword, int usuario_id) {
 
 		UsuarioModel usuarioModel = new UsuarioModel();
-		Usuario usuario = new Usuario(usuario_id, nombres, apellidos, correo, password);
 
 		try {
-			usuarioModel.actualizarPassword(usuario);
+			usuarioModel.actualizarPassword(nuevoPassword, usuario_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

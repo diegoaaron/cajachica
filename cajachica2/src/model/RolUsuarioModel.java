@@ -26,7 +26,7 @@ public class RolUsuarioModel {
 			pstm = cnn.prepareStatement(sql);
 			rst = pstm.executeQuery();
 
-			if (rst.next()) {
+			while (rst.next()) {
 				rolUsuario = new RolUsuario(rst.getInt("rol_id"), rst.getString("nombre_rol"));
 				rolUsuarioArrayList.add(rolUsuario);
 			}

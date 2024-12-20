@@ -11,21 +11,12 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 import model.CajaChica;
-import repository.RegistroCajaChicaRepository;
+import controller.CajaChicaController;
 
 public class RegistroCajaChica extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtmontoasignado;
-
-	/**
-	 * Launch the application.
-	 * 
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { RegistroCajaChica frame = new
-	 * RegistroCajaChica(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
 
 	/**
 	 * Create the frame.

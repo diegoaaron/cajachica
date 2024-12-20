@@ -13,9 +13,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import model.RolUsuario;
-import model.Usuario;
-import repository.Rol_Usuario_Repository;
-import repository.UsuarioRepository;
+import controller.RolUsuarioController;
+import controller.UsuarioController;
 
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -31,17 +30,6 @@ public class RegistarUsuario extends JInternalFrame {
 	private JPasswordField txtpassword;
 	private JTextField txtcorreo;
 	private JTextField txtdireccion;
-
-	private ArrayList<RolUsuario> rolUsuarioArrayList;
-
-	/**
-	 * Launch the application.
-	 * 
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { RegistarUsuario frame = new
-	 * RegistarUsuario(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
 
 	/**
 	 * Create the frame.
@@ -119,11 +107,12 @@ public class RegistarUsuario extends JInternalFrame {
 		cbmrol.setBounds(170, 7, 148, 26);
 		getContentPane().add(cbmrol);
 
-		// metodos
+		// método que carga los roles que pueden utilizar los usuarios
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
-				rolUsuarioArrayList = new Rol_Usuario_Repository().obtenerRoles();
+
+				ArrayList<RolUsuario> rolUsuarioArrayList = new RolUsuarioController().listarRolesUsuario();
 
 				cbmrol.addItem(new RolUsuario());
 
@@ -133,12 +122,12 @@ public class RegistarUsuario extends JInternalFrame {
 			}
 		});
 
+		// método que guarda el usuario creado
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				LocalDate fechaActual = LocalDate.now();
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyy");
-				Usuario usuario = new Usuario();
 				RolUsuario selectedItem = (RolUsuario) cbmrol.getSelectedItem();
 
 				int rol_id = (int) selectedItem.getRol_id();
@@ -151,19 +140,13 @@ public class RegistarUsuario extends JInternalFrame {
 				String fecha_registro = fechaActual.format(formato);
 
 				try {
-
-					usuario.setRol_id(rol_id);
-					usuario.setNombres(nombres);
-					usuario.setApellidos(apellidos);
-					usuario.setDni_ce(dni_ce);
-					usuario.setCorreo(correo);
-					usuario.setDireccion(direccion);
-					usuario.setPassword(password);
-					usuario.setFecha_registro(fecha_registro);
-
-					new UsuarioRepository().guardar(usuario);
+					new UsuarioController().agregarUsuario(rol_id, nombres, apellidos, dni_ce, correo, direccion,
+							password, fecha_registro);
 					JOptionPane.showMessageDialog(null, "Usuario guardado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
 					cbmrol.setSelectedIndex(0);
 					txtnombres.setText("");
 					txtapellidos.setText("");
@@ -171,9 +154,6 @@ public class RegistarUsuario extends JInternalFrame {
 					txtcorreo.setText("");
 					txtdireccion.setText("");
 					txtpassword.setText("");
-
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 
 			}

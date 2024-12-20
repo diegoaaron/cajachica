@@ -11,11 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-
-import model.CajaChica;
 import model.Usuario;
-import repository.RegistroCajaChicaRepository;
-import repository.UsuarioRepository;
+import controller.CajaChicaController;
+import controller.UsuarioController;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,17 +25,6 @@ public class RegistroProyecto extends JInternalFrame {
 	private JTextField txtdescripcionproyecto;
 	private JTextField txtmontoasignado;
 	private JTextField txtnombreproyecto;
-
-	private ArrayList<Usuario> usuarioArrayList;
-
-	/**
-	 * Launch the application.
-	 * 
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { RegistroProyecto frame = new
-	 * RegistroProyecto(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
 
 	/**
 	 * Create the frame.
@@ -90,11 +77,11 @@ public class RegistroProyecto extends JInternalFrame {
 		lblMontoAsignado_1_1.setBounds(12, 100, 155, 24);
 		getContentPane().add(lblMontoAsignado_1_1);
 
-		// metodos
+		// método que agrega los usuarios activos
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
-				usuarioArrayList = new UsuarioRepository().listarUsuarios();
+				ArrayList<Usuario> usuarioArrayList = new UsuarioController().listarUsuariosActivos();
 
 				cbmUsuario.addItem(new Usuario());
 				for (Usuario usuario : usuarioArrayList) {
@@ -103,52 +90,34 @@ public class RegistroProyecto extends JInternalFrame {
 			}
 		});
 
+		// método que guarda el proyecto creado y asociado a un usuario
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				CajaChica registroCajaChicaModel = new CajaChica();
-
 				Usuario usuarioSeleccionado = (Usuario) cbmUsuario.getSelectedItem();
-
 				LocalDate fechaActual = LocalDate.now();
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyy");
 				String fecha_registro = fechaActual.format(formato);
+				String nombre_proyecto = txtnombreproyecto.getText();
+				String descripcion = txtdescripcionproyecto.getText();
+				double monto_asignado = Double.valueOf(txtmontoasignado.getText());
+				int usuario_id = Integer.valueOf(usuarioSeleccionado.getUsuario_id());
+				String fecha_apertura = fecha_registro;
 
-				if (usuarioSeleccionado != null) {
+				try {
 
-					int usuario_id = Integer.valueOf(usuarioSeleccionado.getUsuario_id());
-					String nombre_proyecto = txtnombreproyecto.getText();
-					String descripcion = txtdescripcionproyecto.getText();
-					double monto_asignado = Double.valueOf(txtmontoasignado.getText());
-					String fecha_apertura = fecha_registro;
+					new CajaChicaController().agregarCaja(usuario_id, nombre_proyecto, descripcion, monto_asignado, 0,
+							0, fecha_apertura, "", "abierto");
 
-					try {
+					JOptionPane.showMessageDialog(null, "Caja chica creada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-						registroCajaChicaModel.setUsuario_id(usuario_id);
-						registroCajaChicaModel.setNombre_proyecto(nombre_proyecto);
-						registroCajaChicaModel.setDescripcion(descripcion);
-						registroCajaChicaModel.setMonto_asignado(monto_asignado);
-						registroCajaChicaModel.setMonto_gastado(0);
-						registroCajaChicaModel.setMonto_cierre(0);
-						registroCajaChicaModel.setFecha_apertura(fecha_apertura);
-						registroCajaChicaModel.setFecha_cierre("");
-						registroCajaChicaModel.setEstado_proyecto("");
-
-						new RegistroCajaChicaRepository().guardar(registroCajaChicaModel);
-
-						JOptionPane.showMessageDialog(null, "caja chica del proyecto creada");
-
-						cbmUsuario.setSelectedIndex(0);
-						txtnombreproyecto.setText("");
-						txtdescripcionproyecto.setText("");
-						txtmontoasignado.setText("");
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario");
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					cbmUsuario.setSelectedIndex(0);
+					txtnombreproyecto.setText("");
+					txtdescripcionproyecto.setText("");
+					txtmontoasignado.setText("");
 				}
 
 			}

@@ -100,18 +100,16 @@ public class UsuarioModel {
 	// método para listar a todos los usuarios (activos y desactivados)
 
 	// método para actualizar password
-	public void actualizarPassword(Usuario usuario) {
+	public void actualizarPassword(String nuevoPassword, int usuario_id) {
 
 		PreparedStatement pstm = null;
 
-		String password = usuario.getPassword();
-		String correo = usuario.getCorreo();
-		String sql = "UPDATE usuarios SET password = ? WHERE correo LIKE ?";
+		String sql = "UPDATE usuarios SET password = ? WHERE usuario_id = ?";
 
 		try {
 			pstm = cnn.prepareStatement(sql);
-			pstm.setString(1, password);
-			pstm.setString(2, correo);
+			pstm.setString(1, nuevoPassword);
+			pstm.setInt(2, usuario_id);
 			pstm.executeUpdate();
 
 		} catch (Exception e) {

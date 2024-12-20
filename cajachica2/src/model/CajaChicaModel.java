@@ -26,8 +26,9 @@ public class CajaChicaModel {
 		double monto_cierre = cajaChica.getMonto_cierre();
 		String fecha_apertura = cajaChica.getFecha_apertura();
 		String fecha_cierre = cajaChica.getFecha_cierre();
+		String estado_proyecto = cajaChica.getEstado_proyecto();
 
-		String sql = "INSERT INTO caja_chica (usuario_id, nombre_proyecto, descripcion, monto_asignado, monto_gastado, monto_cierre, fecha_apertura, fecha_cierre) VALUES (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO caja_chica (usuario_id, nombre_proyecto, descripcion, monto_asignado, monto_gastado, monto_cierre, fecha_apertura, fecha_cierre, estado_proyecto) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		try {
 			pstm = cnn.prepareStatement(sql);
@@ -40,6 +41,7 @@ public class CajaChicaModel {
 			pstm.setDouble(6, monto_cierre);
 			pstm.setString(7, fecha_apertura);
 			pstm.setString(8, fecha_cierre);
+			pstm.setString(9, estado_proyecto);
 
 			pstm.executeUpdate();
 		} catch (Exception e) {
