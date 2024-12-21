@@ -19,10 +19,10 @@ import model.CajaChica;
 import model.RendicionGastos;
 import model.TipoCategoria;
 import model.TipoComprobante;
-import repository.RegistroRendicionGastosRepository;
-import repository.RegistroCajaChicaRepository;
-import repository.TipoCategoriaRepository;
-import repository.TipoComprobanteRepository;
+import controller.RendicionGastosController;
+import controller.CajaChicaController;
+import controller.TipoCategoriaController;
+import controller.TipoComprobanteController;
 import utilitarios.VariablesGlobales;
 
 import javax.swing.JComboBox;
@@ -39,9 +39,6 @@ public class RegistroRendicionGastos extends JInternalFrame {
 	private JTextField txtDescripGastos;
 	private JTextField txtMonto;
 	private JTable table;
-
-	private ArrayList<TipoCategoria> tipoCategoriaArrayList;
-	private ArrayList<TipoComprobante> tipoComprobanteArrayList;
 
 	private ArrayList<RendicionGastos> registroRendicionGastosModelArrayList = new ArrayList<>();
 
@@ -149,26 +146,26 @@ public class RegistroRendicionGastos extends JInternalFrame {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
 
-				CajaChica miCajaChica = new RegistroCajaChicaRepository().listarProyecto(VariablesGlobales.USUARIO_ID);
+				CajaChica miCajaChica = new CajaChicaController().listarCajasPorUsuario(VariablesGlobales.USUARIO_ID);
+
 				VariablesGlobales.CAJA_CHICA_ID = miCajaChica.getCaja_id();
-				
 				lblNombre.setText(miCajaChica.getNombre_proyecto());
 				lblMonto.setText(String.valueOf(miCajaChica.getMonto_asignado()));
 
-				tipoCategoriaArrayList = new TipoCategoriaRepository().obtenerTipoCategoria();
+				ArrayList<TipoCategoria> tipoCategoriaArrayList = new TipoCategoriaController().listarTipoCategoria();
 
 				cbmtipocategoria.addItem(new TipoCategoria());
 				for (TipoCategoria tipoCategoria : tipoCategoriaArrayList) {
 					cbmtipocategoria.addItem(tipoCategoria);
 				}
 
-				tipoComprobanteArrayList = new TipoComprobanteRepository().obtenerTipoComprobante();
+				ArrayList<TipoComprobante> tipoComprobanteArrayList = new TipoComprobanteController()
+						.listarTipoComprobante();
 
 				cbmtipocomprobante.addItem(new TipoComprobante());
 				for (TipoComprobante tipoComprobante : tipoComprobanteArrayList) {
 					cbmtipocomprobante.addItem(tipoComprobante);
 				}
-
 			}
 		});
 
@@ -182,8 +179,7 @@ public class RegistroRendicionGastos extends JInternalFrame {
 				RendicionGastos registroRendicion;
 
 				TipoCategoria tipoCategoriaSeleccionado = (TipoCategoria) cbmtipocategoria.getSelectedItem();
-				TipoComprobante tipoComprobanteSeleccionado = (TipoComprobante) cbmtipocomprobante
-						.getSelectedItem();
+				TipoComprobante tipoComprobanteSeleccionado = (TipoComprobante) cbmtipocomprobante.getSelectedItem();
 
 				// Acceder al modelo de la tabla
 				model = (DefaultTableModel) table.getModel();
@@ -209,46 +205,31 @@ public class RegistroRendicionGastos extends JInternalFrame {
 
 						registroRendicionGastosModelArrayList.add(registroRendicion);
 
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					} finally {
 						cbmtipocategoria.setSelectedIndex(0);
 						cbmtipocomprobante.setSelectedIndex(0);
 						txtNumComprobante.setText("");
 						txtDescripGastos.setText("");
 						txtMonto.setText("");
-
-						/*
-						 * registroRendicion.setCaja_id(caja_id);
-						 * registroRendicion.setCategoria_id(categoria_id);
-						 * registroRendicion.setTipo_comprobante_id(tipo_comprobante_id);
-						 * registroRendicion.setNum_comprobante(num_comprobante);
-						 * registroRendicion.setDescripcion_gasto(descripcion_gasto);
-						 * registroRendicion.setMonto(monto);
-						 * registroRendicion.setFecha_registro(fecha_registro);
-						 * registroRendicion.setEstado_aprobacion(estado_aprobacion);
-						 * 
-						 * new RegistroRendicionGastosRepository().guardar(registroRendicion);
-						 * JOptionPane.showMessageDialog(null, "Rendicion completada", "Éxito",
-						 * JOptionPane.INFORMATION_MESSAGE);
-						 */
-
-					} catch (Exception e2) {
-						e2.printStackTrace();
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria y tipo de comprobante");
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria y tipo de comprobante",
+							"Alerta", JOptionPane.INFORMATION_MESSAGE);
 				}
 
 			}
 		});
 
-		// método que guarda la función en una base de datos
+		// método que guarda toda la lista de rendiciones de gasto procesadas
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
 					for (RendicionGastos registro : registroRendicionGastosModelArrayList) {
-						new RegistroRendicionGastosRepository().guardar(registro);
-
+						new RendicionGastosController().agregarRendicion(registro);
 					}
 
 					model.setRowCount(0);
@@ -259,7 +240,6 @@ public class RegistroRendicionGastos extends JInternalFrame {
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
-
 			}
 		});
 

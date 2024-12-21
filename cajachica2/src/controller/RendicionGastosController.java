@@ -12,12 +12,9 @@ public class RendicionGastosController {
 	}
 
 	// método para agregar una rendicion de gasto
-	public void agregarRendicion(int caja_id, int categoria_id, int tipo_comprobante_id, String num_comprobante,
-			String descripcion_gasto, double monto, String fecha_registro, String estado_aprobacion) {
+	public void agregarRendicion(RendicionGastos rendicionGastos) {
 
 		RendicionGastosModel rendicionGastosModel = new RendicionGastosModel();
-		RendicionGastos rendicionGastos = new RendicionGastos(caja_id, categoria_id, tipo_comprobante_id,
-				num_comprobante, descripcion_gasto, monto, fecha_registro, estado_aprobacion);
 
 		try {
 			rendicionGastosModel.agregarRendicion(rendicionGastos);

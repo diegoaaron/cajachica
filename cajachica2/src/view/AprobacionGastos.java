@@ -107,7 +107,7 @@ public class AprobacionGastos extends JInternalFrame {
 			public void internalFrameOpened(InternalFrameEvent e) {
 
 				// cargado de cajas chicas abiertas
-				cajasChicasArrayList = new RegistroCajaChicaRepository().listarCajasAbiertas();
+				cajasChicasArrayList = new CajaChicaController().listarCajasAbiertas();
 
 				// agregando un item en blanco inicial
 				cbmProyectos.addItem(new CajaChica());
@@ -160,8 +160,8 @@ public class AprobacionGastos extends JInternalFrame {
 					lblMontoGastado.setText(String.valueOf(monto_total_gastado_t));
 
 					// obteniendo la lista de gastos de la caja chica seleccionada
-					obtenerGastosPorCajaChicaPorIdList = new RegistroRendicionGastosRepository()
-							.obtenerGastosPorCajaChicaPorId(caja_id_t);
+					obtenerGastosPorCajaChicaPorIdList = new RendicionGastosController()
+							.obtenerGastosPorCajaChica(caja_id_t);
 
 					// mostrando los valores de los gastos de la caja chica seleccionada
 					for (RendicionGastos registroGastosPorCajaChica : obtenerGastosPorCajaChicaPorIdList) {

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
-import model.CajaChica;
+import utilitarios.VariablesGlobales;
 import controller.CajaChicaController;
 
 public class RegistroCajaChica extends JInternalFrame {
@@ -46,37 +46,26 @@ public class RegistroCajaChica extends JInternalFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				CajaChica registroCajaChicaModel = new CajaChica();
-
 				LocalDate fechaActual = LocalDate.now();
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyy");
 				String fecha_registro = fechaActual.format(formato);
 
-				int usuario_id = 1;
+				int usuario_id = VariablesGlobales.USUARIO_ID;
 				String nombre_proyecto = "caja_chica_" + fecha_registro;
 				String descripcion = "caja chica del mes " + fecha_registro.substring(2, 4);
 				double monto_asignado = Double.valueOf(txtmontoasignado.getText());
 				String fecha_apertura = fecha_registro;
 
 				try {
+					new CajaChicaController().agregarCaja(usuario_id, nombre_proyecto, descripcion, monto_asignado, 0,
+							0, fecha_apertura, "", "abierto");
 
-					registroCajaChicaModel.setUsuario_id(usuario_id);
-					registroCajaChicaModel.setNombre_proyecto(nombre_proyecto);
-					registroCajaChicaModel.setDescripcion(descripcion);
-					registroCajaChicaModel.setMonto_asignado(monto_asignado);
-					registroCajaChicaModel.setMonto_gastado(0);
-					registroCajaChicaModel.setMonto_cierre(0);
-					registroCajaChicaModel.setFecha_apertura(fecha_apertura);
-					registroCajaChicaModel.setFecha_cierre("");
-
-					new RegistroCajaChicaRepository().guardar(registroCajaChicaModel);
-
-					JOptionPane.showMessageDialog(null, descripcion + " asignado");
-
-					txtmontoasignado.setText("");
+					JOptionPane.showMessageDialog(null, "Caja chica del mes creada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
 				} catch (Exception e) {
 					e.printStackTrace();
+				} finally {
+					txtmontoasignado.setText("");
 				}
 
 			}
