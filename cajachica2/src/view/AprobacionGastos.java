@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.CajaChica;
 import model.RendicionGastos;
+import utilitarios.VariablesGlobales;
 import controller.CajaChicaController;
 import controller.RendicionGastosController;
 
@@ -32,7 +33,6 @@ public class AprobacionGastos extends JInternalFrame {
 	private ArrayList<CajaChica> cajasChicasArrayList;
 	private ArrayList<RendicionGastos> obtenerGastosPorCajaChicaPorIdList;
 	private DefaultTableModel datosTabla; // datos de la tabla en la instancia
-	private int caja_id_t; // caja chica que se esta trabajando en la instancia
 	private int monto_total_gastado_t; // monto que se esta trabajando en la instancia
 
 	// Constructor
@@ -138,9 +138,9 @@ public class AprobacionGastos extends JInternalFrame {
 				// obteniendo el item seleccionado
 				itemSeleccionado = (CajaChica) cbmProyectos.getSelectedItem();
 
-				caja_id_t = itemSeleccionado.getCaja_id();
+				VariablesGlobales.CAJA_CHICA_ID = itemSeleccionado.getCaja_id();
 
-				if (caja_id_t == -1) {
+				if (VariablesGlobales.CAJA_CHICA_ID == -1) {
 
 					// reseteando las etiquetas en blanco
 					lblNombre.setText("");
@@ -161,7 +161,7 @@ public class AprobacionGastos extends JInternalFrame {
 
 					// obteniendo la lista de gastos de la caja chica seleccionada
 					obtenerGastosPorCajaChicaPorIdList = new RendicionGastosController()
-							.obtenerGastosPorCajaChica(caja_id_t);
+							.obtenerGastosPorCajaChica(VariablesGlobales.CAJA_CHICA_ID);
 
 					// mostrando los valores de los gastos de la caja chica seleccionada
 					for (RendicionGastos registroGastosPorCajaChica : obtenerGastosPorCajaChicaPorIdList) {
@@ -191,14 +191,11 @@ public class AprobacionGastos extends JInternalFrame {
 		btnAprobar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// recorriendo y aprobando los gastos obtenidos para la caja chica
-				for (RendicionGastos registroGastosPorCajaChica : obtenerGastosPorCajaChicaPorIdList) {
-					int idRendicionGastos = registroGastosPorCajaChica.getRendicion_id();
-					new RegistroRendicionGastosRepository().actualizarRegistro(idRendicionGastos);
-				}
+				// aprobando los gastos obtenidos para la caja chica
+				new RendicionGastosController().aprobarRendicionGastos(VariablesGlobales.CAJA_CHICA_ID);
 
 				// aprobando la caja chica para darla por finalizada
-				new RegistroCajaChicaRepository().aprobarCajaChica(caja_id_t);
+				new CajaChicaController().aprobarCajaChica(VariablesGlobales.CAJA_CHICA_ID);
 
 				// seteando la tabla en blanco
 				datosTabla.setRowCount(0);
@@ -226,7 +223,7 @@ public class AprobacionGastos extends JInternalFrame {
 				cbmProyectos.addItem(new CajaChica());
 
 				// cargando los datos para llenar nuevamenteel combobox
-				cajasChicasArrayList = new RegistroCajaChicaRepository().listarCajasAbiertas();
+				cajasChicasArrayList = new CajaChicaController().listarCajasAbiertas();
 
 				// llenado del combobox con las cajas chicas abiertas
 				for (CajaChica cajaChica : cajasChicasArrayList) {

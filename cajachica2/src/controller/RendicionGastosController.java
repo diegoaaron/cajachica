@@ -39,13 +39,13 @@ public class RendicionGastosController {
 
 	}
 
-	// método para actualizar todos los registros de rendicion de gastos por ID de
+	// método para aprobar todos los registros de rendicion de gastos por ID de
 	// caja chica
-	public void actualizarRegistroRendicion(int cajaId) {
+	public void aprobarRendicionGastos(int cajaId) {
 
 		RendicionGastosModel rendicionGastosModel = new RendicionGastosModel();
 		try {
-			rendicionGastosModel.actualizarRegistroRendicion(cajaId);
+			rendicionGastosModel.aprobarRendicionGastos(cajaId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

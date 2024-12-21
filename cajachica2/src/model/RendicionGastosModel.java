@@ -95,7 +95,7 @@ public class RendicionGastosModel {
 
 	// método para actualizar todos los registros de rendicion de gastos por ID de
 	// caja chica
-	public void actualizarRegistroRendicion(int cajaId) {
+	public void aprobarRendicionGastos(int cajaId) {
 
 		PreparedStatement pstm = null;
 		String sql = "UPDATE rendicion_gastos SET estado_aprobacion = ? WHERE caja_id == ?";
