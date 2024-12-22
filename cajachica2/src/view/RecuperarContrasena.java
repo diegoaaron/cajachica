@@ -24,6 +24,8 @@ public class RecuperarContrasena extends JInternalFrame {
 	private JPasswordField txtpassword;
 	private JPasswordField txtpasswordval;
 
+	private Usuario usuarioSeleccionado = null;
+
 	/**
 	 * Create the frame.
 	 */
@@ -77,6 +79,24 @@ public class RecuperarContrasena extends JInternalFrame {
 			}
 		});
 
+		// método gatillado en cada cambio del combobox
+		cbnuser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usuarioSeleccionado = (Usuario) cbnuser.getSelectedItem();
+
+				if (usuarioSeleccionado.getUsuario_id() == -1) {
+					txtpassword.setEnabled(false);
+					txtpasswordval.setEnabled(false);
+					btnGuadar.setEnabled(false);
+				} else {
+					txtpassword.setEnabled(true);
+					txtpasswordval.setEnabled(true);
+					btnGuadar.setEnabled(true);
+				}
+
+			}
+		});
+
 		// método que guarda el cambio de contraseña
 		btnGuadar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -101,9 +121,9 @@ public class RecuperarContrasena extends JInternalFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					cbnuser.setSelectedIndex(0);
 					txtpassword.setText("");
 					txtpasswordval.setText("");
+					cbnuser.setSelectedIndex(0);
 				}
 			}
 		});

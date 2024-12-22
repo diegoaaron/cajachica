@@ -14,7 +14,16 @@ public class Usuario {
 	private String fecha_baja;
 
 	public Usuario() {
-
+		this.usuario_id = -1;
+		this.rol_id = -1;
+		this.nombres = "";
+		this.apellidos = "";
+		this.dni_ce = "";
+		this.correo = "";
+		this.direccion = "";
+		this.password = "";
+		this.fecha_registro = "";
+		this.fecha_baja = "";
 	}
 
 	// constructor para listar usuarios activos
