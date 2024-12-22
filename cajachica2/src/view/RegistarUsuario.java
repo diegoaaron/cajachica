@@ -31,6 +31,8 @@ public class RegistarUsuario extends JInternalFrame {
 	private JTextField txtcorreo;
 	private JTextField txtdireccion;
 
+	private RolUsuario rolSeleccionado = null;
+
 	/**
 	 * Create the frame.
 	 */
@@ -119,6 +121,32 @@ public class RegistarUsuario extends JInternalFrame {
 				for (RolUsuario rol_Usuario : rolUsuarioArrayList) {
 					cbmrol.addItem(rol_Usuario);
 				}
+
+			}
+		});
+
+		// método gatillado en cada cambio del combobox
+		cbmrol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rolSeleccionado = (RolUsuario) cbmrol.getSelectedItem();
+
+				if (rolSeleccionado.getRol_id() == -1) {
+					txtnombres.setEnabled(false);
+					txtapellidos.setEnabled(false);
+					txtdnice.setEnabled(false);
+					txtcorreo.setEnabled(false);
+					txtpassword.setEnabled(false);
+					txtdireccion.setEnabled(false);
+					btnGuardar.setEnabled(false);
+				} else {
+					txtnombres.setEnabled(true);
+					txtapellidos.setEnabled(true);
+					txtdnice.setEnabled(true);
+					txtcorreo.setEnabled(true);
+					txtpassword.setEnabled(true);
+					txtdireccion.setEnabled(true);
+					btnGuardar.setEnabled(true);
+				}
 			}
 		});
 
@@ -147,13 +175,13 @@ public class RegistarUsuario extends JInternalFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					cbmrol.setSelectedIndex(0);
 					txtnombres.setText("");
 					txtapellidos.setText("");
 					txtdnice.setText("");
 					txtcorreo.setText("");
 					txtdireccion.setText("");
 					txtpassword.setText("");
+					cbmrol.setSelectedIndex(0);
 				}
 
 			}

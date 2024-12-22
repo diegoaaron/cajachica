@@ -42,45 +42,45 @@ public class AprobacionGastos extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setTitle("AprobacionGastos");
-		setBounds(100, 100, 686, 292);
+		setBounds(100, 100, 551, 293);
 		getContentPane().setLayout(null);
 
 		JComboBox<CajaChica> cbmProyectos = new JComboBox<CajaChica>();
-		cbmProyectos.setBounds(136, 12, 171, 26);
+		cbmProyectos.setBounds(78, 12, 171, 26);
 		getContentPane().add(cbmProyectos);
 
 		JLabel lblProyecto = new JLabel("Proyecto");
-		lblProyecto.setBounds(41, 17, 60, 17);
+		lblProyecto.setBounds(12, 17, 60, 17);
 		getContentPane().add(lblProyecto);
 
 		JButton btnAprobar = new JButton("Aprobar");
-		btnAprobar.setBounds(343, 12, 105, 27);
+		btnAprobar.setBounds(305, 12, 105, 27);
 		getContentPane().add(btnAprobar);
 
 		JLabel lblUsuarioAsignado = new JLabel("Usuario asignado");
-		lblUsuarioAsignado.setBounds(41, 61, 137, 25);
+		lblUsuarioAsignado.setBounds(12, 59, 112, 25);
 		getContentPane().add(lblUsuarioAsignado);
 
 		JLabel lblNombre = new JLabel("");
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre.setForeground(SystemColor.activeCaption);
 		lblNombre.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
-		lblNombre.setBounds(152, 63, 99, 21);
+		lblNombre.setBounds(139, 63, 99, 21);
 		getContentPane().add(lblNombre);
 
 		JLabel lblMontoGastado = new JLabel("");
 		lblMontoGastado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMontoGastado.setForeground(SystemColor.activeCaption);
 		lblMontoGastado.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
-		lblMontoGastado.setBounds(349, 227, 123, 21);
+		lblMontoGastado.setBounds(262, 227, 123, 21);
 		getContentPane().add(lblMontoGastado);
 
 		JLabel lblUsuarioAsignado_1 = new JLabel("Monto total gastado");
-		lblUsuarioAsignado_1.setBounds(190, 225, 137, 25);
+		lblUsuarioAsignado_1.setBounds(128, 227, 137, 25);
 		getContentPane().add(lblUsuarioAsignado_1);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(99, 98, 512, 115);
+		scrollPane.setBounds(12, 96, 512, 115);
 		getContentPane().add(scrollPane);
 
 		table = new JTable();
@@ -89,14 +89,14 @@ public class AprobacionGastos extends JInternalFrame {
 		scrollPane.setViewportView(table);
 
 		JLabel lblMontoDeLa = new JLabel("Monto de la caja chica");
-		lblMontoDeLa.setBounds(390, 61, 137, 25);
+		lblMontoDeLa.setBounds(262, 59, 137, 25);
 		getContentPane().add(lblMontoDeLa);
 
 		JLabel lblMontocajachica = new JLabel("");
 		lblMontocajachica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMontocajachica.setForeground(SystemColor.activeCaption);
 		lblMontocajachica.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
-		lblMontocajachica.setBounds(530, 61, 99, 21);
+		lblMontocajachica.setBounds(411, 59, 99, 21);
 		getContentPane().add(lblMontocajachica);
 
 		// métodos

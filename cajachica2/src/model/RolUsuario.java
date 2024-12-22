@@ -8,6 +8,10 @@ public class RolUsuario {
 	private String fecha_creacion;
 
 	public RolUsuario() {
+		this.rol_id = -1;
+		this.nombre_rol = "";
+		this.descripcion = "";
+		this.fecha_creacion = "";
 
 	}
 
