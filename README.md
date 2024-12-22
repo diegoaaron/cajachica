@@ -5,7 +5,10 @@
 
 
 las rendiciones de gastos se aprueban en bloque y por proyecto (no de forma individual)
-
+la recuperación de contraseñas se puede puede dar de las siguientes maneras:
+- rol sistema: puede resetear a el mismo y cualquier contador y auditor
+- rol contador: puede resetear su contraseña y de cualquier auditor
+- rol auditor: solo puede resetear su contraseña
 
 ### observaciones
 
