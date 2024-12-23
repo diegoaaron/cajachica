@@ -30,7 +30,7 @@ Herramientas utilizadas:
 
 ### Modelo de la Base de datos
 
-[diagrama BD](images/caja_chica_diagrama.png)
+![diagrama BD](images/caja_chica_diagrama.png)
 
 #### Imagenes
 
