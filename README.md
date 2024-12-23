@@ -9,7 +9,6 @@ Herramientas utilizadas:
 - [Eclipse 2024-09](#)
 - [DB Broswser](#)
 - [Java 17](#)
-- [Indicaciones para crear Jframes](images/indicaciones_jframe.txt)
 
 ### Estructura del proyecto
 
@@ -25,9 +24,13 @@ Herramientas utilizadas:
 
 ---
 
-**Nota:** Para ejecutar el proyecto hay que lanzar el archivo  `.../crudswing/src/view/ProductoView.java`
+**Nota:** Para ejecutar el proyecto hay que lanzar el archivo  `.../cajachica2/src/view/InicioSesion.java`
 
 ---
+
+### Modelo de la Base de datos
+
+[diagrama BD](images/caja_chica_diagrama.png)
 
 #### Imagenes
 
