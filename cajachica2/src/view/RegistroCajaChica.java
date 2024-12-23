@@ -50,6 +50,7 @@ public class RegistroCajaChica extends JInternalFrame {
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("ddMMyyyy");
 				String fecha_registro = fechaActual.format(formato);
 
+				System.out.println(VariablesGlobales.USUARIO_ID);
 				int usuario_id = VariablesGlobales.USUARIO_ID;
 				String nombre_proyecto = "caja_chica_" + fecha_registro;
 				String descripcion = "caja chica del mes " + fecha_registro.substring(2, 4);
